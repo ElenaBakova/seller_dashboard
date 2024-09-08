@@ -76,6 +76,24 @@
       "views": 200000,
       "likes": 302,
       "imageUrl": ""
+    },
+    {
+      "id": "451a",
+      "name": "Новый товар",
+      "price": 100,
+      "createdAt": "2024-08-12T12:16:55.351Z",
+      "views": 200,
+      "likes": 300,
+      "imageUrl": ""
+    },
+    {
+      "id": "9cd1",
+      "name": "Новый товар",
+      "price": 100,
+      "createdAt": "2024-08-12T12:16:55.351Z",
+      "views": 200,
+      "likes": 300,
+      "imageUrl": ""
     }
   ],
   "orders": [
