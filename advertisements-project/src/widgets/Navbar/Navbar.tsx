@@ -6,7 +6,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import './Navbar.css';
 
 const pages = [
-    {text: "Все объявления", href: "/allAdvertisements"},
+    {text: "Объявления", href: "/allAdvertisements"},
     {text: "Заказы", href: "/orders"},
 ];
 
