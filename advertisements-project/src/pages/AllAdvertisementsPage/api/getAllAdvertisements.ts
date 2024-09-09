@@ -1,5 +1,6 @@
-import {Advertisment} from "../../../../server/types/types.ts";
 import {useEffect, useState} from "react";
+
+import {Advertisment} from "../../../../server/types/types.ts";
 
 const GetAllAdvertisements = () => {
     const [advertisements, setAdvertisements] = useState<Advertisment[]>([]);
@@ -10,11 +11,10 @@ const GetAllAdvertisements = () => {
             fetch('http://localhost:3000/advertisements')
                 .then(res => res.json())
                 .then(data => {
-                    console.log(data);
-                    setAdvertisements(data)
+                    setAdvertisements(data);
                     setLoading(false);
                 })
-                .catch(err => console.error('An error occured while fetching advertisements:', err));
+                .catch(err => console.error('An error occurred while fetching advertisements:', err));
         }
 
         fetchAllAdvertisements();

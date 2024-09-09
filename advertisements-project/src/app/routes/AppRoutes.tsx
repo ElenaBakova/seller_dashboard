@@ -1,4 +1,5 @@
 import {BrowserRouter, Navigate, Route, Routes} from "react-router-dom";
+
 import routesConfig from "./config.ts";
 
 const AppRoutes = () => {

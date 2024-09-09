@@ -1,10 +1,12 @@
+import {useNavigate} from "react-router-dom";
 import {Card, CardActionArea, CardContent, CardMedia, Typography} from '@mui/material';
+
 import type {Advertisment} from '../../../server/types/types.ts'
+import routesConfig from "../../app/routes/config.ts";
+
 import Likes from "../../shared/ui/Likes";
 import Views from "../../shared/ui/Views";
 import Price from "../../shared/ui/Price";
-import {useNavigate} from "react-router-dom";
-import routesConfig from "../../app/routes/config.ts";
 
 interface AdvertisementCardProps {
     advertisement: Advertisment;

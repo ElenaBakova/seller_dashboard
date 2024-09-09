@@ -1,6 +1,8 @@
 import Grid from '@mui/material/Grid2';
 import CircularProgress from '@mui/material/CircularProgress';
+
 import GetAllAdvertisements from "../api/getAllAdvertisements.ts";
+
 import AdvertisementCard from "../../../widgets/AdvertisementCard/AdvertisementCard.tsx";
 
 const AllAdvertisementsPage = () => {
