@@ -3,15 +3,24 @@ import type {Advertisment} from '../../../server/types/types.ts'
 import Likes from "../../shared/ui/Likes";
 import Views from "../../shared/ui/Views";
 import Price from "../../shared/ui/Price";
+import {useNavigate} from "react-router-dom";
+import routesConfig from "../../app/routes/config.ts";
 
 interface AdvertisementCardProps {
     advertisement: Advertisment;
 }
 
 const AdvertisementCard = ({advertisement}: AdvertisementCardProps) => {
+    const navigate = useNavigate();
+
+    const handleCardClick = () => {
+        const route = routesConfig["advertisement"].path;
+        navigate(route.replace(':id', advertisement.id));
+    }
+
     return (
         <Card sx={{minWidth: 240}}>
-            <CardActionArea>
+            <CardActionArea id={advertisement.id} onClick={handleCardClick}>
                 {/* Advertisement image */}
                 <CardMedia
                     component="img"
