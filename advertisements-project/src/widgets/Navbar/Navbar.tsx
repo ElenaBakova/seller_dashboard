@@ -4,10 +4,11 @@ import {AppBar, Box, Button, Container, IconButton, Link, Menu, MenuItem, Toolba
 import MenuIcon from '@mui/icons-material/Menu';
 
 import './Navbar.css';
+import routesConfig from "../../app/routes/config.ts";
 
 const pages = [
-    {text: "Объявления", href: "/allAdvertisements"},
-    {text: "Заказы", href: "/orders"},
+    {text: "Объявления", href: routesConfig["advertisements"].path},
+    {text: "Заказы", href: routesConfig["orders"].path},
 ];
 
 function Navbar() {

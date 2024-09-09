@@ -1,15 +1,14 @@
 import {BrowserRouter, Navigate, Route, Routes} from "react-router-dom";
-import AdvertisementPage from "../../pages/AdvertisementPage/ui/AdvertisementPage.tsx";
-import AllAdvertisementsPage from "../../pages/AllAdvertisementsPage/ui/AllAdvertisementsPage.tsx";
+import routesConfig from "./config.ts";
 
 const AppRoutes = () => {
     return (
         <BrowserRouter>
             <Routes>
-                <Route path="/ADTEST" element={<AdvertisementPage></AdvertisementPage>}/>
-                <Route path="/" element={<Navigate to="/allAdvertisements" replace/>}/>
-                <Route path="/allAdvertisements" element={<AllAdvertisementsPage></AllAdvertisementsPage>}/>
-                <Route path="/orders" element={<div>Заказы</div>}/>
+                <Route path="/" element={<Navigate to={routesConfig["advertisements"].path} replace/>}/>
+                {Object.entries(routesConfig).map(([_, value], index) => (
+                    <Route key={index} path={value.path} element={<value.element/>}></Route>
+                ))}
             </Routes>
         </BrowserRouter>
     );
