@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
 import {Advertisment} from "../../../../server/types/types.ts";
 
-const getAdvertisement = (id: string) => {
+const useGetAdvertisement = (id: string) => {
     const [advertisement, setAdvertisement] = useState<Advertisment>({
         createdAt: "",
         description: "",
@@ -31,4 +31,4 @@ const getAdvertisement = (id: string) => {
     return {advertisement, loading};
 }
 
-export default getAdvertisement;
+export default useGetAdvertisement;

@@ -2,7 +2,7 @@ import {useNavigate, useParams} from "react-router-dom";
 import Grid from "@mui/material/Grid2";
 import {Button, CardContent, CardMedia, CircularProgress, Typography} from "@mui/material";
 
-import getAdvertisement from "../api/getAdvertisement.ts";
+import useGetAdvertisement from "../api/useGetAdvertisement.ts";
 
 import Likes from "../../../shared/ui/Likes";
 import Views from "../../../shared/ui/Views";
@@ -11,7 +11,7 @@ import routesConfig from "../../../app/routes/config.ts";
 
 const AdvertisementPage = () => {
     const {id} = useParams();
-    const {advertisement, loading} = getAdvertisement(id as string);
+    const {advertisement, loading} = useGetAdvertisement(id as string);
 
     const navigate = useNavigate();
 
