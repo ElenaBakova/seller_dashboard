@@ -1,15 +1,16 @@
-import {useNavigate, useParams} from "react-router-dom";
-import getAdvertisement from "../api/getAdvertisement.ts";
-import routesConfig from "../../../app/routes/config.ts";
-import {Box, Button, CircularProgress, InputAdornment, TextField, Typography} from "@mui/material";
 import {useEffect, useState} from "react";
+import {useNavigate, useParams} from "react-router-dom";
 
+import {Box, Button, CircularProgress, InputAdornment, TextField, Typography} from "@mui/material";
+
+import saveChanges from "../api/saveChanges.ts";
+import useGetAdvertisement from "../api/useGetAdvertisement.ts";
+import routesConfig from "../../../app/routes/config.ts";
 
 const AdvertisementEditPage = () => {
     const {id} = useParams();
-    const {advertisement, loading} = getAdvertisement(id as string);
+    const {advertisement, loading} = useGetAdvertisement(id as string);
 
-    // @ts-ignore
     const [formData, setFormData] = useState({
         name: '',
         description: '',
@@ -30,16 +31,28 @@ const AdvertisementEditPage = () => {
         }
     }, [advertisement]);
 
-    const handleSaveClick = () => {
-        const route = routesConfig["editAdvertisement"].path;
-        navigate(route.replace(':id', advertisement.id));
+    const handleSaveClick = async () => {
+        try {
+            const newData = {
+                ...advertisement,
+                name: formData.name,
+                description: formData.description,
+                price: formData.price,
+                imageUrl: formData.imageUrl,
+            }
+            await saveChanges(newData);
+            const route = routesConfig["advertisement"].path;
+            navigate(route.replace(':id', advertisement.id), {replace: true});
+        } catch (error) {
+            console.error(error);
+        }
     }
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const { name, value } = e.target;
+        const {name, value} = e.target;
         setFormData((prev) => ({
             ...prev,
-            [name]: name === 'price' ? parseInt(value) : value,
+            [name]: name === 'price' ? parseInt(value) || 0 : value,
         }));
     };
 
@@ -49,21 +62,20 @@ const AdvertisementEditPage = () => {
 
     return (
         <Box sx={{padding: 2}}>
-            <Typography variant="h6">Редактировать объявление</Typography>
+            <Typography variant="h6">Редактирование объявления</Typography>
             <Box component="form" sx={{display: 'flex', flexDirection: 'column', gap: 2}}>
                 <TextField
                     label="Название"
                     name="name"
-                    value={advertisement.name}
+                    value={formData.name}
                     onChange={handleChange}
                     variant="outlined"
                     fullWidth
                 />
                 <TextField
                     label="Цена"
-                    type="number"
                     name="price"
-                    value={advertisement.price}
+                    value={formData.price}
                     onChange={handleChange}
                     variant="outlined"
                     fullWidth
@@ -76,7 +88,7 @@ const AdvertisementEditPage = () => {
                 <TextField
                     label="Описание"
                     name="description"
-                    value={advertisement.description}
+                    value={formData.description}
                     onChange={handleChange}
                     variant="outlined"
                     multiline
@@ -86,7 +98,8 @@ const AdvertisementEditPage = () => {
                 <TextField
                     label="URL изображения"
                     name="imageUrl"
-                    value={advertisement.imageUrl}
+                    type="url"
+                    value={formData.imageUrl || ''}
                     onChange={handleChange}
                     variant="outlined"
                     fullWidth
