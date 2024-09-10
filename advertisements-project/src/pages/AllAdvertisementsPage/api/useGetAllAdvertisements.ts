@@ -2,7 +2,7 @@ import {useEffect, useState} from "react";
 
 import {Advertisment} from "../../../../server/types/types.ts";
 
-const GetAllAdvertisements = () => {
+const useGetAllAdvertisements = () => {
     const [advertisements, setAdvertisements] = useState<Advertisment[]>([]);
     const [loading, setLoading] = useState(true);
 
@@ -23,4 +23,4 @@ const GetAllAdvertisements = () => {
     return {advertisements, loading};
 };
 
-export default GetAllAdvertisements;
+export default useGetAllAdvertisements;
