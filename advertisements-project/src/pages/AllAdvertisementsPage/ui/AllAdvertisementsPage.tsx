@@ -46,6 +46,7 @@ const AllAdvertisementsPage = () => {
 
     return (
         <Box>
+            {/* Advertisement creation button */}
             <CreateAdvertisementModal/>
 
             {/* Field for a search query */}

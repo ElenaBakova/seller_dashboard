@@ -63,7 +63,7 @@ const AdvertisementEditPage = () => {
     return (
         <Box sx={{padding: 2}}>
             <Typography variant="h6">Редактирование объявления</Typography>
-            <Box component="form" sx={{display: 'flex', flexDirection: 'column', gap: 2}}>
+            <Box component="form" autoComplete="off" sx={{display: 'flex', flexDirection: 'column', gap: 2}}>
                 <TextField
                     label="Название"
                     name="name"
