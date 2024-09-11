@@ -2,6 +2,7 @@ import {Order} from "../../../server/types/types.ts";
 import {Card, CardActions, CardContent, Typography} from '@mui/material';
 import {statusMapping} from "../../../server/types/statusMapping.ts";
 import OrderModal from "../OrderModal/OrderModal.tsx";
+import {deliveryMapping} from "../../../server/types/deliveryMapping.ts";
 
 interface OrderCardProps {
     order: Order;
@@ -26,6 +27,12 @@ const OrderCard = ({order}: OrderCardProps) => {
                 </Typography>
                 <Typography component="p">
                     {statusMapping[order.status]}
+                </Typography>
+                <Typography component="p">
+                    Доставку осуществляет: {deliveryMapping[order.deliveryWay] || 'неизвестно'}
+                </Typography>
+                <Typography>
+                    {order.status < 4 ? "Возможно оформление возврата" : "Нельзя оформить возврат"}
                 </Typography>
                 <Typography component="p">
                     Номер заказа: {order.id}
