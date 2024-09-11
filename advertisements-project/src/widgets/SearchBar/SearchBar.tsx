@@ -1,13 +1,17 @@
 import {IconButton, TextField} from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 
-const SearchBar = ({setSearchQuery}) => (
+interface SearchBarProps {
+    onQueryChange: (query: string) => void;
+}
+
+const SearchBar = ({onQueryChange}: SearchBarProps) => (
     <form>
         <TextField
             id="search-bar"
             className="text"
             onInput={(e) => {
-                setSearchQuery((e.target as HTMLInputElement).value.toLowerCase());
+                onQueryChange((e.target as HTMLInputElement).value.toLowerCase());
             }}
             variant="outlined"
             placeholder="Поиск по названию"

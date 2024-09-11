@@ -26,7 +26,7 @@ const useGetAdvertisement = (id: string) => {
         }
 
         fetchAdvertisement();
-    }, []);
+    }, [id]);
 
     return {advertisement, loading};
 }
