@@ -68,7 +68,7 @@ const AdvertisementEditPage = () => {
   }
 
   return (
-    <Box sx={{ padding: 2 }}>
+    <Box className={"pageContent"} sx={{ padding: 2 }}>
       <Typography variant="h6">Редактирование объявления</Typography>
       <Box
         component="form"

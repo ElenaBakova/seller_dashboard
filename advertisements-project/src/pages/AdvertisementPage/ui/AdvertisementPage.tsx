@@ -31,7 +31,7 @@ const AdvertisementPage = () => {
   }
 
   return (
-    <Grid sx={{ py: 3, px: 12 }}>
+    <Grid className={"pageContent"} sx={{ py: 3, px: 12 }}>
       <Grid container direction="column" spacing={4}>
         <Button
           variant="contained"

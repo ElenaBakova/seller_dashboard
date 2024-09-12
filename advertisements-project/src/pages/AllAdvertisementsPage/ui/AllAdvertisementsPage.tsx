@@ -54,17 +54,14 @@ const AllAdvertisementsPage = () => {
   }
 
   return (
-    <Box>
-      {/* Advertisement creation button */}
+    <Box className={"pageContent"}>
       <CreateAdvertisementModal />
 
-      {/* Field for a search query */}
       <SearchBar onQueryChange={setSearchQuery} />
 
-      {/* Menu for selecting advertisements per page size */}
       <PaginationSizeSelector
         adsPerPage={adsPerPage}
-        handleAdsPerPageChange={handleAdsPerPageChange}
+        handleCardsPerPageChange={handleAdsPerPageChange}
       />
 
       <Grid container spacing={2}>
@@ -79,7 +76,6 @@ const AllAdvertisementsPage = () => {
         )}
       </Grid>
 
-      {/* Page number navigation controls */}
       <PaginationControls
         currentPage={currentPage}
         totalPages={totalPages}

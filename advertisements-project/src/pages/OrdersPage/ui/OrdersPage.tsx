@@ -48,7 +48,7 @@ const OrdersPage = () => {
   }
 
   return (
-    <Grid container spacing={2}>
+    <Grid container className={"pageContent"} spacing={2}>
       <Grid container flexDirection="column" spacing={4}>
         <OrdersSorting
           sortingOrder={sortingOrder}
