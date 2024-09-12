@@ -1,15 +1,11 @@
-import {Typography} from "@mui/material";
+import { Typography } from "@mui/material";
 
 interface Price {
-    price: number;
+  price: number;
 }
 
-const Price = ({price}: Price) => {
-    return (
-        <Typography component="p">
-            {price}&nbsp;₽
-        </Typography>
-    );
+const Price = ({ price }: Price) => {
+  return <Typography component="p">{price}&nbsp;₽</Typography>;
 };
 
 export default Price;

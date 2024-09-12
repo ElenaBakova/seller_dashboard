@@ -1,8 +1,13 @@
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 
-import {Box, CircularProgress, Grid2 as Grid, SelectChangeEvent} from "@mui/material";
+import {
+  Box,
+  CircularProgress,
+  Grid2 as Grid,
+  SelectChangeEvent,
+} from "@mui/material";
 
-import {Advertisment} from "../../../../server/types/types.ts";
+import { Advertisment } from "../../../../server/types/types.ts";
 import useGetAllAdvertisements from "../api/useGetAllAdvertisements.ts";
 
 import SearchBar from "../../../widgets/SearchBar/SearchBar.tsx";
@@ -12,63 +17,76 @@ import PaginationSizeSelector from "../../../widgets/Pagination/PaginationSizeSe
 import CreateAdvertisementModal from "../../../widgets/CreateAdvertisementModal/CreateAdvertisementModal.tsx";
 
 const AllAdvertisementsPage = () => {
-    const {advertisements, loading} = useGetAllAdvertisements();
-    const [filteredAdvertisements, setFilteredAdvertisements] = useState<Advertisment[]>([]);
-    const [searchQuery, setSearchQuery] = useState("");
-    const [currentPage, setCurrentPage] = useState(1);
-    const [adsPerPage, setAdsPerPage] = useState(10);
+  const { advertisements, loading } = useGetAllAdvertisements();
+  const [filteredAdvertisements, setFilteredAdvertisements] = useState<
+    Advertisment[]
+  >([]);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [adsPerPage, setAdsPerPage] = useState(10);
 
-    const totalPages = Math.ceil(filteredAdvertisements.length / adsPerPage);
-    const lastAdIndex = currentPage * adsPerPage;
-    const firstAdIndex = lastAdIndex - adsPerPage;
+  const totalPages = Math.ceil(filteredAdvertisements.length / adsPerPage);
+  const lastAdIndex = currentPage * adsPerPage;
+  const firstAdIndex = lastAdIndex - adsPerPage;
 
-    const handleAdsPerPageChange = (event: SelectChangeEvent) => {
-        setAdsPerPage(Number(event.target.value));
-        setCurrentPage(1);
-    };
+  const handleAdsPerPageChange = (event: SelectChangeEvent) => {
+    setAdsPerPage(Number(event.target.value));
+    setCurrentPage(1);
+  };
 
-    useEffect(() => {
-        if (advertisements) {
-            setFilteredAdvertisements(advertisements);
-        }
-    }, [advertisements]);
-
-    useEffect(() => {
-        setFilteredAdvertisements(advertisements
-            .filter((item) => item.name.toLowerCase().includes(searchQuery))
-        );
-        setCurrentPage(1);
-    }, [advertisements, searchQuery]);
-
-    if (loading) {
-        return <CircularProgress/>
+  useEffect(() => {
+    if (advertisements) {
+      setFilteredAdvertisements(advertisements);
     }
+  }, [advertisements]);
 
-    return (
-        <Box>
-            {/* Advertisement creation button */}
-            <CreateAdvertisementModal/>
-
-            {/* Field for a search query */}
-            <SearchBar onQueryChange={setSearchQuery}/>
-
-            {/* Menu for selecting advertisements per page size */}
-            <PaginationSizeSelector adsPerPage={adsPerPage} handleAdsPerPageChange={handleAdsPerPageChange}/>
-
-            <Grid container spacing={2}>
-                {filteredAdvertisements ? filteredAdvertisements
-                    .slice(firstAdIndex, lastAdIndex)
-                    .map(ad => (
-                        <Grid key={ad.id} size={{xs: 12, sm: 6, md: 4}}>
-                            <AdvertisementCard advertisement={ad}/>
-                        </Grid>
-                    )) : <></>}
-            </Grid>
-
-            {/* Page number navigation controls */}
-            <PaginationControls currentPage={currentPage} totalPages={totalPages} onPageChange={setCurrentPage}/>
-        </Box>
+  useEffect(() => {
+    setFilteredAdvertisements(
+      advertisements.filter((item) =>
+        item.name.toLowerCase().includes(searchQuery),
+      ),
     );
+    setCurrentPage(1);
+  }, [advertisements, searchQuery]);
+
+  if (loading) {
+    return <CircularProgress />;
+  }
+
+  return (
+    <Box>
+      {/* Advertisement creation button */}
+      <CreateAdvertisementModal />
+
+      {/* Field for a search query */}
+      <SearchBar onQueryChange={setSearchQuery} />
+
+      {/* Menu for selecting advertisements per page size */}
+      <PaginationSizeSelector
+        adsPerPage={adsPerPage}
+        handleAdsPerPageChange={handleAdsPerPageChange}
+      />
+
+      <Grid container spacing={2}>
+        {filteredAdvertisements ? (
+          filteredAdvertisements.slice(firstAdIndex, lastAdIndex).map((ad) => (
+            <Grid key={ad.id} size={{ xs: 12, sm: 6, md: 4 }}>
+              <AdvertisementCard advertisement={ad} />
+            </Grid>
+          ))
+        ) : (
+          <></>
+        )}
+      </Grid>
+
+      {/* Page number navigation controls */}
+      <PaginationControls
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={setCurrentPage}
+      />
+    </Box>
+  );
 };
 
 export default AllAdvertisementsPage;
