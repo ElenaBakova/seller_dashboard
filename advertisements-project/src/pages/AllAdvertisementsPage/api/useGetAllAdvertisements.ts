@@ -14,7 +14,9 @@ const useGetAllAdvertisements = () => {
                     setAdvertisements(data);
                     setLoading(false);
                 })
-                .catch(err => console.error('An error occurred while fetching advertisements:', err));
+                .catch(err => {
+                    console.error('An error occurred while fetching advertisements:', err)
+                });
         }
 
         fetchAllAdvertisements();
