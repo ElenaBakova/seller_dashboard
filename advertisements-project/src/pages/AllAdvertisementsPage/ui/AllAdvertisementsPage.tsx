@@ -60,7 +60,7 @@ const AllAdvertisementsPage = () => {
       <SearchBar onQueryChange={setSearchQuery} />
 
       <PaginationSizeSelector
-        adsPerPage={adsPerPage}
+        cardsPerPage={adsPerPage}
         handleCardsPerPageChange={handleAdsPerPageChange}
       />
 

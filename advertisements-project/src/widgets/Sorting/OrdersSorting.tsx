@@ -10,9 +10,9 @@ const OrdersSorting = ({
   setSortingOrder,
 }: OrdersSortingProps) => {
   return (
-    <Box sx={{ minWidth: 120 }}>
+    <Box sx={{ maxWidth: "fit-content" }}>
       <FormControl fullWidth>
-        <InputLabel id="demo-simple-select-label">Age</InputLabel>
+        <InputLabel id="select-label">Сортировка</InputLabel>
         <Select
           variant="outlined"
           labelId="demo-simple-select-label"

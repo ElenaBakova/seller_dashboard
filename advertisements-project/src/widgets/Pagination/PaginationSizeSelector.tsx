@@ -6,22 +6,22 @@ import {
   Typography,
 } from "@mui/material";
 
-interface SelectPerPageProps {
-  adsPerPage: number;
-  handleAdsPerPageChange: (event: SelectChangeEvent) => void;
+interface PaginationSizeProps {
+  cardsPerPage: number;
+  handleCardsPerPageChange: (event: SelectChangeEvent) => void;
 }
 
 const PaginationSizeSelector = ({
-  adsPerPage,
-  handleAdsPerPageChange,
-}: SelectPerPageProps) => {
+  cardsPerPage,
+  handleCardsPerPageChange,
+}: PaginationSizeProps) => {
   return (
     <Box mb={2}>
-      <Typography variant="body1">Объявлений на странице:</Typography>
+      <Typography variant="body1">Показывать по:</Typography>
       <Select
         variant={"outlined"}
-        value={adsPerPage.toString()}
-        onChange={handleAdsPerPageChange}
+        value={cardsPerPage.toString()}
+        onChange={handleCardsPerPageChange}
       >
         <MenuItem value={5}>5</MenuItem>
         <MenuItem value={10}>10</MenuItem>

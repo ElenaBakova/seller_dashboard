@@ -25,7 +25,7 @@ const OrdersFilter = ({ selected, setSelected }: FilterProps) => {
   };
 
   return (
-    <FormControl sx={{ m: 1, width: 300 }}>
+    <FormControl sx={{ maxWidth: 300 }}>
       <InputLabel id="demo-multiple-chip-label">
         Фильтр по статусу заказа
       </InputLabel>
