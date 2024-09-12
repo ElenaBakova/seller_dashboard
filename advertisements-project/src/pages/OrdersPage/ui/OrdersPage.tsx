@@ -1,25 +1,43 @@
-import useGetOrders from "../api/useGetOrders.ts";
+import {useEffect, useState} from "react";
 import CircularProgress from "@mui/material/CircularProgress";
 import Grid from "@mui/material/Grid2";
-import OrderCard from "../../../widgets/OrderCard/OrderCard.tsx";
-import {useState} from "react";
-import {Box, Chip, FormControl, InputLabel, MenuItem, OutlinedInput, Select, SelectChangeEvent} from "@mui/material";
+
+import useGetOrders from "../api/useGetOrders.ts";
+import {Order} from "../../../../server/types/types.ts";
 import {statusMapping} from "../../../../server/types/statusMapping.ts";
+import OrderCard from "../../../widgets/OrderCard/OrderCard.tsx";
+import OrdersFilter from "../../../widgets/Filters/OrdersFilter.tsx";
+import OrdersSorting from "../../../widgets/Sorting/OrdersSorting.tsx";
 
 const OrdersPage = () => {
     const {orders, loading} = useGetOrders();
-    const [statusFilter, setStatusFilter] = useState<string[]>([]);
+    const [statusFilter, setStatusFilter] = useState<string[]>(statusMapping);
+    const [filteredOrders, setFilteredOrders] = useState<Order[]>([]);
+    const [sortingOrder, setSortingOrder] = useState<'asc' | 'desc'>('asc')
 
-    const handleChange = (event: SelectChangeEvent<typeof statusMapping>) => {
-        const {
-            target: { value },
-        } = event;
-        setStatusFilter(
-            // On autofill we get a stringified value.
-            typeof value === 'string' ? value.split(',') : value,
-        );
-        console.log(statusFilter);
-    };
+    useEffect(() => {
+        if (orders) {
+            setFilteredOrders(orders);
+        }
+    }, [orders]);
+
+    useEffect(() => {
+        if (orders) {
+            setFilteredOrders(orders.filter((order) => statusFilter.includes(statusMapping[order.status])));
+        }
+    }, [statusFilter, orders]);
+
+    useEffect(() => {
+        const sorted = filteredOrders.sort((a, b) => {
+            switch (sortingOrder) {
+                case 'asc':
+                    return a.total - b.total;
+                case "desc":
+                    return b.total - a.total;
+            }
+        })
+        setFilteredOrders(sorted);
+    }, [filteredOrders, sortingOrder])
 
     if (loading) {
         return <CircularProgress/>
@@ -27,40 +45,18 @@ const OrdersPage = () => {
 
     return (
         <Grid container spacing={2}>
-            <FormControl sx={{ m: 1, width: 300 }}>
-                <InputLabel id="demo-multiple-chip-label">Фильтр по статусу заказа</InputLabel>
-                <Select
-                    labelId="demo-multiple-chip-label"
-                    id="demo-multiple-chip"
-                    multiple
-                    value={statusFilter}
-                    onChange={handleChange}
-                    input={<OutlinedInput id="select-multiple-chip" label="Фильтр по статусу заказа" />}
-                    renderValue={(selected) => (
-                        <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
-                            {selected.map((value, index) => (
-                                <Chip key={index} label={value} />
-                            ))}
-                        </Box>
-                    )}
-                    variant={"outlined"}
-                >
-                    {statusMapping.map((status, index) => (
-                        <MenuItem
-                            key={index}
-                            value={status}
-                        >
-                            {status}
-                        </MenuItem>
-                    ))}
-                </Select>
-            </FormControl>
+            <Grid container flexDirection="column" spacing={4}>
+                <OrdersSorting sortingOrder={sortingOrder} setSortingOrder={setSortingOrder}/>
 
-            {orders.map(order => (
-                <Grid key={order.id} size={{xs: 12, sm: 6, md: 4}}>
-                    <OrderCard order={order}/>
-                </Grid>
-            ))}
+                <OrdersFilter selected={statusFilter} setSelected={setStatusFilter}/>
+            </Grid>
+
+            {filteredOrders
+                .map(order => (
+                    <Grid key={order.id} size={{xs: 12, sm: 6, md: 4}}>
+                        <OrderCard order={order}/>
+                    </Grid>
+                ))}
         </Grid>
     );
 };
