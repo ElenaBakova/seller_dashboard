@@ -8,12 +8,26 @@ import { statusMapping } from "../../../../server/types/statusMapping.ts";
 import OrderCard from "../../../widgets/OrderCard/OrderCard.tsx";
 import OrdersFilter from "../../../widgets/Filters/OrdersFilter.tsx";
 import OrdersSorting from "../../../widgets/Sorting/OrdersSorting.tsx";
+import PaginationControls from "../../../widgets/Pagination/PaginationControls.tsx";
+import { Box, SelectChangeEvent } from "@mui/material";
+import PaginationSizeSelector from "../../../widgets/Pagination/PaginationSizeSelector.tsx";
 
 const OrdersPage = () => {
   const { orders, loading } = useGetOrders();
   const [statusFilter, setStatusFilter] = useState<string[]>(statusMapping);
   const [filteredOrders, setFilteredOrders] = useState<Order[]>([]);
   const [sortingOrder, setSortingOrder] = useState<"asc" | "desc">("asc");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [ordersPerPage, setOrdersPerPage] = useState(10);
+
+  const totalPages = Math.ceil(filteredOrders.length / ordersPerPage);
+  const lastOrderIndex = currentPage * ordersPerPage;
+  const firstOrderIndex = lastOrderIndex - ordersPerPage;
+
+  const handleOrdersPerPageChange = (event: SelectChangeEvent) => {
+    setOrdersPerPage(Number(event.target.value));
+    setCurrentPage(1);
+  };
 
   useEffect(() => {
     if (orders) {
@@ -40,6 +54,7 @@ const OrdersPage = () => {
           return b.total - a.total;
       }
     });
+    setCurrentPage(1);
     setFilteredOrders(sorted);
   }, [filteredOrders, sortingOrder]);
 
@@ -48,22 +63,39 @@ const OrdersPage = () => {
   }
 
   return (
-    <Grid container className={"pageContent"} spacing={2}>
-      <Grid container flexDirection="column" spacing={4}>
-        <OrdersSorting
-          sortingOrder={sortingOrder}
-          setSortingOrder={setSortingOrder}
-        />
+    <Box sx={{ flexGrow: 1 }} flexDirection="column" className={"pageContent"}>
+      <Grid container flexDirection="row" spacing={2}>
+        <Grid container size={3} flexDirection="column" spacing={3}>
+          <OrdersSorting
+            sortingOrder={sortingOrder}
+            setSortingOrder={setSortingOrder}
+          />
 
-        <OrdersFilter selected={statusFilter} setSelected={setStatusFilter} />
+          <OrdersFilter selected={statusFilter} setSelected={setStatusFilter} />
+
+          <PaginationSizeSelector
+            cardsPerPage={ordersPerPage}
+            handleCardsPerPageChange={handleOrdersPerPageChange}
+          />
+        </Grid>
+
+        <Grid size={9}>
+          {filteredOrders
+            .slice(firstOrderIndex, lastOrderIndex)
+            .map((order) => (
+              <Grid key={order.id} size={{ xs: 12, sm: 6, md: 4 }}>
+                <OrderCard order={order} />
+              </Grid>
+            ))}
+        </Grid>
       </Grid>
 
-      {filteredOrders.map((order) => (
-        <Grid key={order.id} size={{ xs: 12, sm: 6, md: 4 }}>
-          <OrderCard order={order} />
-        </Grid>
-      ))}
-    </Grid>
+      <PaginationControls
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={setCurrentPage}
+      />
+    </Box>
   );
 };
 
