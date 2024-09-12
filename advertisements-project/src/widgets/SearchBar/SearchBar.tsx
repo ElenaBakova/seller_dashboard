@@ -18,7 +18,7 @@ const SearchBar = ({ onQueryChange }: SearchBarProps) => (
       size="small"
     />
     <IconButton type="submit" aria-label="search">
-      <SearchIcon style={{ fill: "blue" }} />
+      <SearchIcon className="searchIcon" />
     </IconButton>
   </form>
 );

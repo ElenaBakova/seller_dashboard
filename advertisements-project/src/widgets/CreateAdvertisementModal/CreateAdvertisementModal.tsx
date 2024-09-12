@@ -49,7 +49,9 @@ const CreateAdvertisementModal = () => {
 
   return (
     <div>
-      <Button onClick={() => setOpen(true)}>Добавить объявление</Button>
+      <Button variant="contained" onClick={() => setOpen(true)}>
+        Добавить объявление
+      </Button>
       <Modal open={open} onClose={() => setOpen(false)}>
         <Box className={"modalWindow"}>
           <Typography id="items-list" variant="h6" component="h2">
@@ -103,11 +105,7 @@ const CreateAdvertisementModal = () => {
               variant="outlined"
               fullWidth
             />
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={handleSaveClick}
-            >
+            <Button variant="contained" onClick={handleSaveClick}>
               Сохранить изменения
             </Button>
           </Box>

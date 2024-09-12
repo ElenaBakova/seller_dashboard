@@ -30,6 +30,27 @@ const theme = createTheme({
         },
       },
     },
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          "&.MuiButton-contained": {
+            backgroundColor: "#00AAFF",
+          },
+          "&.MuiButton-outlined": {
+            borderColor: "#00AAFF",
+          },
+        },
+      },
+    },
+    MuiSvgIcon: {
+      styleOverrides: {
+        root: {
+          "&.searchIcon": {
+            color: "#00AAFF",
+          },
+        },
+      },
+    },
   },
 });
 

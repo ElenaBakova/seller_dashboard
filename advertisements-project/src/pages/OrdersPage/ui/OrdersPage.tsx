@@ -9,7 +9,7 @@ import OrderCard from "../../../widgets/OrderCard/OrderCard.tsx";
 import OrdersFilter from "../../../widgets/Filters/OrdersFilter.tsx";
 import OrdersSorting from "../../../widgets/Sorting/OrdersSorting.tsx";
 import PaginationControls from "../../../widgets/Pagination/PaginationControls.tsx";
-import { Box, SelectChangeEvent } from "@mui/material";
+import { SelectChangeEvent } from "@mui/material";
 import PaginationSizeSelector from "../../../widgets/Pagination/PaginationSizeSelector.tsx";
 
 const OrdersPage = () => {
@@ -63,7 +63,13 @@ const OrdersPage = () => {
   }
 
   return (
-    <Box sx={{ flexGrow: 1 }} flexDirection="column" className={"pageContent"}>
+    <Grid
+      container
+      sx={{ flexGrow: 1 }}
+      spacing={5}
+      flexDirection="column"
+      className={"pageContent"}
+    >
       <Grid container flexDirection="row" spacing={2}>
         <Grid container size={3} flexDirection="column" spacing={3}>
           <OrdersSorting
@@ -104,7 +110,7 @@ const OrdersPage = () => {
         totalPages={totalPages}
         onPageChange={setCurrentPage}
       />
-    </Box>
+    </Grid>
   );
 };
 

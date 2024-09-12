@@ -55,25 +55,33 @@ const AllAdvertisementsPage = () => {
 
   return (
     <Box className={"pageContent"}>
-      <CreateAdvertisementModal />
+      <Grid container flexDirection="column" spacing={2}>
+        <Grid container direction="row" spacing={2}>
+          <CreateAdvertisementModal />
 
-      <SearchBar onQueryChange={setSearchQuery} />
+          <Grid container flexDirection="row" sx={{ marginLeft: "auto" }}>
+            <PaginationSizeSelector
+              cardsPerPage={adsPerPage}
+              handleCardsPerPageChange={handleAdsPerPageChange}
+            />
 
-      <PaginationSizeSelector
-        cardsPerPage={adsPerPage}
-        handleCardsPerPageChange={handleAdsPerPageChange}
-      />
+            <SearchBar onQueryChange={setSearchQuery} />
+          </Grid>
+        </Grid>
 
-      <Grid container spacing={2}>
-        {filteredAdvertisements ? (
-          filteredAdvertisements.slice(firstAdIndex, lastAdIndex).map((ad) => (
-            <Grid key={ad.id} size={{ xs: 12, sm: 6, md: 4 }}>
-              <AdvertisementCard advertisement={ad} />
-            </Grid>
-          ))
-        ) : (
-          <></>
-        )}
+        <Grid container spacing={2}>
+          {filteredAdvertisements ? (
+            filteredAdvertisements
+              .slice(firstAdIndex, lastAdIndex)
+              .map((ad) => (
+                <Grid key={ad.id} size={{ xs: 12, sm: 6, md: 4 }}>
+                  <AdvertisementCard advertisement={ad} />
+                </Grid>
+              ))
+          ) : (
+            <></>
+          )}
+        </Grid>
       </Grid>
 
       <PaginationControls

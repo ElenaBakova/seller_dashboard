@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 import {
-  Box,
   Button,
   CircularProgress,
   InputAdornment,
@@ -13,6 +12,7 @@ import {
 import saveChanges from "../api/saveChanges.ts";
 import useGetAdvertisement from "../api/useGetAdvertisement.ts";
 import routesConfig from "../../../app/routes/config.ts";
+import Grid from "@mui/material/Grid2";
 
 const AdvertisementEditPage = () => {
   const { id } = useParams();
@@ -68,12 +68,22 @@ const AdvertisementEditPage = () => {
   }
 
   return (
-    <Box className={"pageContent"} sx={{ padding: 2 }}>
-      <Typography variant="h6">Редактирование объявления</Typography>
-      <Box
+    <Grid
+      container
+      spacing={3}
+      flexDirection="column"
+      className={"pageContent"}
+      sx={{ alignContent: "center", padding: 4 }}
+    >
+      <Typography variant="h5">Редактирование объявления</Typography>
+      <Grid
+        container
+        direction="row"
+        spacing={3}
         component="form"
         autoComplete="off"
-        sx={{ display: "flex", flexDirection: "column", gap: 2 }}
+        width="60%"
+        margin="auto"
       >
         <TextField
           label="Название"
@@ -115,11 +125,11 @@ const AdvertisementEditPage = () => {
           variant="outlined"
           fullWidth
         />
-        <Button variant="contained" color="primary" onClick={handleSaveClick}>
+        <Button variant="contained" onClick={handleSaveClick}>
           Сохранить изменения
         </Button>
-      </Box>
-    </Box>
+      </Grid>
+    </Grid>
   );
 };
 
