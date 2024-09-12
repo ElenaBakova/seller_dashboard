@@ -12,7 +12,7 @@ const AppRoutes = () => {
             <Navigate to={routesConfig["advertisements"].path} replace />
           }
         />
-        {Object.entries(routesConfig).map(([_, value], index) => (
+        {Object.entries(routesConfig).map(([, value], index) => (
           <Route
             key={index}
             path={value.path}
