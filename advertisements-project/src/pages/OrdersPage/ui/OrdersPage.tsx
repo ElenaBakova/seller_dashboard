@@ -79,11 +79,20 @@ const OrdersPage = () => {
           />
         </Grid>
 
-        <Grid size={9}>
+        <Grid container spacing={3} size={9}>
           {filteredOrders
             .slice(firstOrderIndex, lastOrderIndex)
             .map((order) => (
-              <Grid key={order.id} size={{ xs: 12, sm: 6, md: 4 }}>
+              <Grid
+                key={order.id}
+                sx={{
+                  maxWidth: "300px",
+                  maxHeight: "250px",
+                  flex: "1 0 auto",
+                  display: "flex",
+                  alignItems: "stretch",
+                }}
+              >
                 <OrderCard order={order} />
               </Grid>
             ))}
