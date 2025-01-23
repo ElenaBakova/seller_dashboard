@@ -19,7 +19,7 @@
 `cd .\advertisements-project\`\
 `npm run dev`
 
-Клиент запустится на http://localhost:5175/
+Клиент запустится на http://localhost:5173/ (если порт не занят)
 
 ---
 
